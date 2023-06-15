@@ -7,25 +7,16 @@ def solution(n, roads, sources, destination):
         graph[n1].append(n2)
         graph[n2].append(n1)    
 
-    for source in sources:
-        answer.append(bfs(graph, n, source, destination))
-        
-    return answer
-
-def bfs(graph, n, source, destination):
     invited = [-1]*(n+1)
-    invited[source] = 0
-    queue = deque([source])
+    invited[destination] = 0
+    queue = deque([destination])
     
     while queue:
-        node = queue.popleft()
+        node = queue.popleft()       
 
-        if node == destination:
-            break
-        
         for neighbor in graph[node]:
             if invited[neighbor] == -1:
                 invited[neighbor] = invited[node] + 1
                 queue.append(neighbor)
                 
-    return invited[destination]
+    return [invited[s] for s in sources]
