@@ -8,9 +8,7 @@ def solution(n, works):
     heapify(works)
 
     while n>0:
-        max_work=heappop(works)
-        work = max_work+1
-        heappush(works, work)
+        heappush(works, heappop(works)+1)
         n-=1
         
     return sum([work**2 for work in works])
