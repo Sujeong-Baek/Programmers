@@ -1,24 +1,35 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/12971
+from collections import deque
 def solution(sticker):
-    answer1 = 0
-    answer2 = 0
+    answer = 0
     
-    if len(sticker)%2 !=0:
-        for idx, s in enumerate(sticker[1:],1):
-            if idx%2 == 0 and idx != len(sticker)-1:
-                answer1+=s
+    for idx in range(3):
+        answer=max(answer, serch_sticker_score(idx, sticker)) 
+    return answer
 
-            elif idx%2 != 0 and idx != len(sticker)-1:
-                answer2+=s
+def serch_sticker_score(idx, sticker):
+    answer = 0
+    que=deque()
+    que.append([idx, sticker[idx], visited])
+
+    visited = [0] * (len(sticker))
+    visited[idx]=1
+    visited[(idx+1)% len(sticker)]=1
+    visited[(idx-1)% len(sticker)]=1
+    
+    while que:      
+        idx, score, visited = que.popleft()
+        answer = max(answer,score)
+      
+        for jump in [2, 3]:
+            current_idx = (idx + jump) % len(sticker)
+            current_visited=[num for num in visited]
+            
+            if not current_visited[current_idx]:
+                start=max(0,current_idx-1)
+                end=min(current_idx+2,len(sticker))                
+                current_visited[start:end]=[1]*(end-start)
+                que.append([current_idx, score+sticker[current_idx],current_visited])
                 
-        answer1+=max(sticker[0],sticker[-1])
-        
-    else:
-        for idx, s in enumerate(sticker):
-            if idx%2 == 0:
-                answer1+=s
-
-            elif idx%2 != 0:
-                answer2+=s
-    return max(answer1, answer2)
+    return answer
 
