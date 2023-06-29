@@ -10,12 +10,13 @@ def solution(sticker):
 def serch_sticker_score(idx, sticker):
     answer = 0
     que=deque()
-    que.append([idx, sticker[idx], visited])
 
     visited = [0] * (len(sticker))
     visited[idx]=1
     visited[(idx+1)% len(sticker)]=1
     visited[(idx-1)% len(sticker)]=1
+    
+    que.append([idx, sticker[idx], visited])
     
     while que:      
         idx, score, visited = que.popleft()
