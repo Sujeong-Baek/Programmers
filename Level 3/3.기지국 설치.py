@@ -8,7 +8,7 @@ def solution(n, stations, w):
             answer += 1
             current += 1 + 2*w
         current = station+w
-        
+
     while current < n:
             answer += 1
             current += 1 + 2*w      
