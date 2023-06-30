@@ -1,36 +1,18 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/12971
-from collections import deque
 def solution(sticker):
-    answer = 0
+    if len(sticker) == 1:
+        return sticker[0]
     
-    for idx in range(3):
-        answer=max(answer, serch_sticker_score(idx, sticker)) 
-    return answer
-
-def serch_sticker_score(idx, sticker):
-    answer = 0
-    que=deque()
-
-    visited = [0] * (len(sticker))
-    visited[idx]=1
-    visited[(idx+1)% len(sticker)]=1
-    visited[(idx-1)% len(sticker)]=1
+    answer1 = [0] * len(sticker)
+    answer1[0] = sticker[0]
+    answer1[1] = sticker[0]
+    for i in range(2, len(sticker)-1):
+        answer1[i] = max(answer1[i-1], answer1[i-2] + sticker[i])
     
-    que.append([idx, sticker[idx], visited])
+    answer2 = [0] * len(sticker)
+    answer2[1] = sticker[1]
+    for i in range(2, len(sticker)):
+        answer2[i] = max(answer2[i-1], answer2[i-2] + sticker[i])
     
-    while que:      
-        idx, score, visited = que.popleft()
-        answer = max(answer,score)
-      
-        for jump in [2, 3]:
-            current_idx = (idx + jump) % len(sticker)
-            current_visited=[num for num in visited]
-            
-            if not current_visited[current_idx]:
-                start=max(0,current_idx-1)
-                end=min(current_idx+2,len(sticker))                
-                current_visited[start:end]=[1]*(end-start)
-                que.append([current_idx, score+sticker[current_idx],current_visited])
-                
-    return answer
+    return max(max(answer1), max(answer2))
 
