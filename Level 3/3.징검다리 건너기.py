@@ -2,20 +2,20 @@
 def solution(stones, k):
     left = 0
     right = max(stones)
-
+    count = 0
     while left < right:
         mid = (left+right) // 2
-        zeros = [0 if stone <= mid else 1 for stone in stones]
+        zeros = [0 if stone <= mid else 1 for stone in stones ]
 
-        for idx, zero in enumerate(zeros):
+        for zero in zeros:
             if zero == 0:
-                i = idx
-                while i < len(stones) and zeros[i] == 0:
-                    i += 1
-                if i - idx >= k:
+                count+=1
+                if count == k:
                     right = mid
                     break
+            else:
+                count = 0
         else:
             left = mid + 1
-
+        
     return right
