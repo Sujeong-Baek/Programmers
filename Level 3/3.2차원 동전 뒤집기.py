@@ -1,10 +1,10 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/131703
 def solution(beginning, target):
-    answer1 = 0
+    answer1 = answer2 = answer3 = 0
     R=len(target)
     C=len(target[0])
     beginning2  = [r[:] for r in beginning]
-    answer2 =0
+    beginning3  = [r[:] for r in beginning]
     
     for r in range(R):
         if beginning[r][0] != target[r][0]:
@@ -24,7 +24,31 @@ def solution(beginning, target):
     for r in range(R):
         if beginning2[r][0] != target[r][0]:
             flip_coin(beginning2, r, 'r')
-            answer2+=1          
+            answer2+=1
+
+    flip_coin(beginning3, 0, 'c')
+    flip_coin(beginning3, 0, 'r')
+    answer3 = 2
+    for c in range(1, C):
+        if beginning3[0][c] != target[0][c]:
+            flip_coin(beginning3, c, 'c')
+            answer3+=1
+            
+    for r in range(1, R):
+        if beginning3[r][0] != target[r][0]:
+            flip_coin(beginning3, r, 'r')
+            answer3+=1
+              
+    if beginning != target:
+        answer1 = float('inf')
+    if beginning2 != target:
+        answer2 = float('inf')
+    if beginning3 != target:
+        answer3 = float('inf')
+    answer = min(answer1, answer2, answer3)
+    if answer == float('inf'):
+        return -1
+    return answer
 
     if beginning== target and beginning2 == target:
         return min(answer1, answer2)
@@ -32,7 +56,6 @@ def solution(beginning, target):
         return answer2
     if beginning == target and beginning2 != target:
         return answer1
-    # if beginning != target and beginning2 != target:
     return -1
     
     # return answer if beginning == target else -1
@@ -68,4 +91,19 @@ def flip_coin(beginning, n, rc):
                 elif c==n and coin == 1:
                     beginning[r][n] = 0
                 
-            
+solution(
+    [
+        [0,0,1,0,0],
+        [1,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0]
+    ],
+    [
+        [0,1,0,1,1],
+        [0,0,0,0,0],
+        [1,0,0,0,0],
+        [1,0,0,0,0],
+        [1,0,0,0,0]
+    ]
+    )
