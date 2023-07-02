@@ -1,19 +1,20 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/12979
 def solution(n, stations, w):
+    end = 0 # end번까지 확인함
     answer = 0
-    current = 0 # current번을 이제 확인해야함
-      
     for station in stations:
-        while current < station-w-1:
+        while end < station-w-1:
             answer += 1
-            current += 1 + 2*w
-        current = station+w
+            end += 1 + 2*w
+        end = station+w
 
-    while current < n:
+    while end < n:
             answer += 1
-            current += 1 + 2*w      
+            end += 1 + 2*w      
             
     return answer
+
+# 숙제: current = 1로 짜보기
 
 # 기지국과 연결되는 가장 끝부분을 저장해두고 갱신
 
