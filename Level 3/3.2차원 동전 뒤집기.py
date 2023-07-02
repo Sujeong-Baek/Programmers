@@ -50,32 +50,6 @@ def solution(beginning, target):
         return -1
     return answer
 
-    if beginning== target and beginning2 == target:
-        return min(answer1, answer2)
-    if beginning != target and beginning2 == target:
-        return answer2
-    if beginning == target and beginning2 != target:
-        return answer1
-    return -1
-    
-    # return answer if beginning == target else -1
-
-# o x o x o
-# x x o x x
-# o o x o o
-
-# o x x x o
-# x x x x x
-# o o o o o
-
-# o x x x o
-# x x x x x
-# x x x x x
-
-# o x o x o
-# x x o x x
-# x x o x x
-
 def flip_coin(beginning, n, rc):
     if rc=='r':
         for idx, coin in enumerate(beginning[n]):
