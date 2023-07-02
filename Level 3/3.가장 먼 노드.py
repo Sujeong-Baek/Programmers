@@ -9,16 +9,16 @@ def solution(n, edge):
         graph[n2].append(n1)
 
     que = deque(([1]))
-    visited = [-1] * n+1
-    visited[1] = 0 
+    distances = [-1] * n+1
+    distances[1] = 0
 
     while que:
         node = que.popleft()
 
         for neighbor in graph[node]:
-            if visited[neighbor] == -1:
-                visited[neighbor] = visited[node] + 1
+            if distances[neighbor] == -1:
+                distances[neighbor] = distances[node] + 1
                 que.append(neighbor)
 
-    far_node = max(visited)
-    return visited.count(far_node)
+    far_node = max(distances)
+    return distances.count(far_node)
